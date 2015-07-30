@@ -15,7 +15,10 @@ public class EmployeeDAO {
 		 session.beginTransaction();
 		 
 		 for (EmployeeEntity item : lstEmp) {
-			 session.save(item);
+			 Object tempEmp =   session.get(EmployeeEntity.class, item.getId());
+			 if (tempEmp == null) {
+				 session.save(item);
+			 }
 		 }
 		 
 		 session.getTransaction().commit();

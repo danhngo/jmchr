@@ -7,22 +7,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import cs.jmchr.dao.employee.EmployeeDAO;
-import cs.jmchr.entity.employee.EmployeeEntity;
 import cs.jmchr.model.employee.EmployeeModel;
 import cs.jmchr.service.employee.EmployeeService;
 
@@ -45,17 +44,20 @@ public class EmployeeController {
 		return "employee/import";
 	}
 	@RequestMapping(value = "/employee/importexcel", method = RequestMethod.POST)
-	public String importEmployee(@RequestBody String filePath) {
+	public ModelAndView importEmployee(@RequestBody String filePath) {
 
 		logger.info("importexcel() is executed");
 		
-		filePath = "/home/danhngo/Projects/Jmchr/Employee.xlsx";
+		//filePath = "/home/danhngo/Projects/Jmchr/Employee.xlsx";
+		filePath = "D:/1.Projects/Jmchr.git/jmchr/build/employee.xls";
 		
 		List<EmployeeModel> lstEmployee = readEmployeeProfile(filePath);
 		EmployeeService.importEmployee(lstEmployee);
 		
-				
-		return "employee/import";
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employee/list");		
+		
+		return model;
 	}
 	
 	
@@ -65,12 +67,19 @@ public class EmployeeController {
 		
 		try
         {
-			FileInputStream file = new FileInputStream(new File(filePath));
+			File inputFile = new File(filePath);
+			FileInputStream file = new FileInputStream(inputFile);
             //Create Workbook instance holding reference to .xlsx file
-			XSSFWorkbook workbook = new XSSFWorkbook(file);
- 
-            //Get first/desired sheet from the workbook
-			XSSFSheet sheet = workbook.getSheetAt(0);
+			Workbook workbook = null;
+			String ext = filePath.substring(filePath.length() - 3);
+			if ("xls".equals(ext)) {
+				workbook = new HSSFWorkbook(file);
+			} else {
+				workbook = new XSSFWorkbook(file);
+			}
+	
+			//Get first/desired sheet from the workbook
+			Sheet sheet = workbook.getSheetAt(0);
  
             //Iterate through each rows one by one
             Iterator<Row> rowIterator = sheet.iterator();
@@ -122,7 +131,7 @@ public class EmployeeController {
                     if (posName == -1 && "Name".equals(cell.getStringCellValue())) {
                     	posName =  cell.getColumnIndex();
                     } 
-                    if (posStartDate == -1 && "StartDate".equals(cell.getStringCellValue())) {
+                    if (posStartDate == -1 && "Startdate".equals(cell.getStringCellValue())) {
                     	posStartDate =  cell.getColumnIndex();
                     } 
                     
@@ -149,6 +158,8 @@ public class EmployeeController {
 		
 		return lstEmployee;
 	}
+	
+	
 	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)

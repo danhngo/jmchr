@@ -20,9 +20,24 @@
                     <div style="padding-top:30px" class="panel-body" >
 
                         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                        
+                        	<form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/importexcel" method="POST" >
+                         	
+                       		  	<input type="file" id="filePath" class="filestyle" data-buttonName="btn-primary" data-buttonText="Browse" data-iconName="glyphicon glyphicon-search" />
+                         
+                                <div style="margin-top:10px" class="form-group">
+                                    <!-- Button -->
+	                                  <div class="col-sm-12 controls">
+                                      	  <a id="btnimport" href="#" class="btn btn-success">Import Employee</a>                                     	
+                                    </div>
+                                </div>
+                            </form>    
                             
-                        <form id="loginform" class="form-horizontal" role="form">
-                                    
+                        	<%-- <form:form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/importexcel" method="POST" commandName="importInfoForm">
+                         	
+                         	<form:input type="file" id="filePath" path="filePath" class="filestyle" data-buttonName="btn-primary" data-buttonText="Browse" data-iconName="glyphicon glyphicon-search" />
+                         	
+                         	<!--            
                             <div style="margin-bottom: 25px" class="input-group">
                                   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                   <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="file path">
@@ -30,16 +45,18 @@
                                    <a id="btn-login" href="#" class="btn btn-primary">Browse... </a>
                                    </span>                             
                               </div>
-                                
+                             -->    
                          
                                 <div style="margin-top:10px" class="form-group">
                                     <!-- Button -->
-
-                                    <div class="col-sm-12 controls">
-                                      <a id="btn-login" href="#" class="btn btn-success">Import Employee  </a>
+	                                  <div class="col-sm-12 controls">
+                                      	  <a id="btnimport" href="#" class="btn btn-success">Import Employee</a>
+                                      	 <!-- 
+                                      	 <button type="submit" class="btn btn-success">Import Employee</button>
+                                      	  -->	
                                     </div>
                                 </div>
-                            </form>     
+                            </form:form>      --%>
 
 
 

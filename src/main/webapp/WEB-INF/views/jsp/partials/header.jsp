@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <head>
 <title>JMC HR</title>
 
@@ -9,16 +10,18 @@
 <link href="${bootstrapCss}" rel="stylesheet" />
 <link href="${coreCss}" rel="stylesheet" />
 
-<spring:url value="/resources/core/js/hello.js" var="coreJs" />
 <spring:url value="/resources/core/js/jquery-2.1.4.min.js" var="jqueryJs" />
 <spring:url value="/resources/core/js/bootstrap.min.js" var="bootstrapJs" />
 <spring:url value="/resources/core/js/bootstrap-hover-dropdown.min.js" var="bootstrapHoverJs" />
+<spring:url value="/resources/core/js/bootstrap-filestyle.min.js" var="bootstrapFileJs" />
+<spring:url value="/resources/core/js/jmchr.js" var="coreJs" />
 
-
-<script src="${coreJs}"></script>
 <script src="${jqueryJs}"></script>
 <script src="${bootstrapJs}"></script>
 <script src="${bootstrapHoverJs}"></script>
+<script src="${bootstrapFileJs}"></script>
+<script src="${coreJs}"></script>
+
 
 </head>
 

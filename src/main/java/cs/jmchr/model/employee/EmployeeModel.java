@@ -1,6 +1,6 @@
 package cs.jmchr.model.employee;
 
-public class Employee {
+public class EmployeeModel {
 	private String id;
 	private String name;
 	private String startDate;

@@ -1,27 +1,34 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>  
+
 <head>
 <title>JMC HR</title>
 
-<spring:url value="/resources/core/css/hello.css" var="coreCss" />
-<spring:url value="/resources/core/css/bootstrap.min.css" var="bootstrapCss" />
+<s:url value="/resources/core/css/jmchr.css" var="jmchrCss" />
+<s:url value="/resources/core/css/bootstrap.min.css" var="bootstrapCss" />
+<s:url value="/resources/core/css/dataTables.bootstrap.css" var="dataTableBootstrapCss" />
 
+<link href="${dataTableBootstrapCss}" rel="stylesheet" />
 <link href="${bootstrapCss}" rel="stylesheet" />
-<link href="${coreCss}" rel="stylesheet" />
+<link href="${jmchrCss}" rel="stylesheet" />
 
-<spring:url value="/resources/core/js/jquery-2.1.4.min.js" var="jqueryJs" />
-<spring:url value="/resources/core/js/bootstrap.min.js" var="bootstrapJs" />
-<spring:url value="/resources/core/js/bootstrap-hover-dropdown.min.js" var="bootstrapHoverJs" />
-<spring:url value="/resources/core/js/bootstrap-filestyle.min.js" var="bootstrapFileJs" />
-<spring:url value="/resources/core/js/jmchr.js" var="coreJs" />
+<s:url value="/resources/core/js/jquery-2.1.4.min.js" var="jqueryJs" />
+<s:url value="/resources/core/js/bootstrap.min.js" var="bootstrapJs" />
+<s:url value="/resources/core/js/bootstrap-hover-dropdown.min.js" var="bootstrapHoverJs" />
+<s:url value="/resources/core/js/bootstrap-filestyle.min.js" var="bootstrapFileJs" />
+<s:url value="/resources/core/js/jmchr.js" var="jmchrJs" />
+<s:url value="/resources/core/js/jquery.dataTables.min.js" var="jqueryDatatableJs" />
+<s:url value="/resources/core/js/dataTables.bootstrap.js" var="dataTablesBootstrapJs" />
+
 
 <script src="${jqueryJs}"></script>
 <script src="${bootstrapJs}"></script>
 <script src="${bootstrapHoverJs}"></script>
 <script src="${bootstrapFileJs}"></script>
-<script src="${coreJs}"></script>
-
+<script src="${jmchrJs}"></script>
+<script src="${jqueryDatatableJs}"></script>
+<script src="${dataTablesBootstrapJs}"></script>
 
 </head>
 
@@ -32,13 +39,13 @@
        <span class="icon-bar"></span>
        <span class="icon-bar"></span>
      </button>
-     <a class="navbar-brand" href="#">JMC HRMS</a>
+     <a class="navbar-brand" href="/jmchr">JMC HRMS</a>
      <div class="navbar-collapse nav-collapse collapse navbar-header">
        <ul class="nav navbar-nav">
          <li class="dropdown">
            <a href="#" class="dropdown-toggle js-activated">Employee<b class="caret"></b></a>
            <ul class="dropdown-menu">
-             <li><a href="#">Search</a></li>
+             <li><a href="/jmchr/employee/list">Search</a></li>
              <li><a href="#">Contract & Resignation</a></li>
              <li><a href="#">Leave</a></li>
              <li><a href="#">Performance</a></li>

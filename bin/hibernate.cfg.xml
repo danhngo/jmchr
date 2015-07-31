@@ -15,3 +15,4 @@
     <mapping class="cs.jmchr.entity.employee.EmployeeEntity"/>          
    </session-factory>
 </hibernate-configuration> 
+

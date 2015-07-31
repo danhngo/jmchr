@@ -3,7 +3,7 @@ package cs.jmchr.model.employee;
 public class EmployeeModel {
 	private String id;
 	private String name;
-	private String startDate;
+	private String startdate;
 	public String getId() {
 		return id;
 	}
@@ -17,11 +17,11 @@ public class EmployeeModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getStartDate() {
-		return startDate;
+	public String getStartdate() {
+		return startdate;
 	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setStartdate(String startdate) {
+		this.startdate = startdate;
 	}
 	
 	

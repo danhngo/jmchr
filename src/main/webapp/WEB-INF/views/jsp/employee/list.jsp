@@ -5,43 +5,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Import Employee</title>
+
 </head>
 <%@ include file="/WEB-INF/views/jsp/partials/header.jsp" %>
 
 <body>
 <div class="container">
+	
+	<div id="paddingTop100">
+	
+		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	        <thead>
+	            <tr>
+	                <th>ID</th>
+	                <th>Name</th>
+	                <th>Startdate</th>
+	            </tr>
+	        </thead>
+	 
+	        <tbody>
+	             <c:forEach var="employee" items="${employeeList}" >
+		              <tr>
+		                <td>${employee.id}</td>
+		                <td>${employee.name}</td>
+		                <td>${employee.startdate}</td>
+		             </tr>
+	         
+	            </c:forEach>
+	           
+	           </tbody>
+	          </table>
+		</div>
 		
-	<div class="row">
-		<div class="col-md-4">
-			<h2>Heading 2</h2>
-			<p>ABC</p>
-			<p>
-				<a class="btn btn-default" href="#" role="button">View details</a>
-			</p>
-		</div>
-		<div class="col-md-4">
-			<h2>Heading</h2>
-			<p>ABC</p>
-			<p>
-				<a class="btn btn-default" href="#" role="button">View details</a>
-			</p>
-		</div>
-		<div class="col-md-4">
-			<h2>Heading</h2>
-			<p>ABC</p>
-			<p>
-				<a class="btn btn-default" href="#" role="button">View details</a>
-			</p>
-		</div>
 	</div>
-
-
 	<hr>
 	
 	<%@ include file="/WEB-INF/views/jsp/partials/footer.jsp" %>
 	
 </div>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#example').dataTable();
+	} );
+</script>	
 
 </body>
 </html>

@@ -4,3 +4,8 @@
 .container {
   width: 98%;
 }
+
+div#paddingTop100 {
+	display: block;
+	padding-top: 100px;		
+}

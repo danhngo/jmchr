@@ -1,9 +1,12 @@
 package cs.jmchr.web.employee;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hwpf.HWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +81,28 @@ public class EmployeeController {
 		model.addObject("employeeList", employeeList);
 				
 		return model;
+	}
+	
+	@RequestMapping(value = "/employee/exportContract", method = RequestMethod.POST)
+	public String exportContract(@RequestBody String empId) {
+		//model.put("importInfoForm", new ImportInfoForm()); 
+		logger.info("exportContract() is executed");
+		
+		FileInputStream fistream;
+		HWPFDocument document;
+		try {
+			fistream = new FileInputStream("File_Path");
+			document = new HWPFDocument(fistream);
+			
+			System.out.println("Length of docment is :"+ document.characterLength());
+			System.out.println(document.getText());
+			System.out.println(document.getDocumentText());
+			
+		} catch (Exception e) {
+			
+		}
+				
+		return "employee/list";
 	}
 	
 	

@@ -33,9 +33,16 @@
 	         
 	            </c:forEach>
 	           
-	           </tbody>
-	          </table>
-		</div>
+           </tbody>
+          </table>
+	</div>
+	
+	<div style="margin-top:10px" class="form-group">
+         <!-- Button -->
+        <div class="col-sm-12 controls">
+           	  <a id="btnimport" href="#" class="btn btn-success">Export Contract</a>                                     	
+         </div>
+     </div>
 		
 	</div>
 	<hr>

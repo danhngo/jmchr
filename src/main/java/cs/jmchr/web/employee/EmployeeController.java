@@ -1,7 +1,6 @@
 package cs.jmchr.web.employee;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cs.jmchr.ExcelUtil;
+import cs.jmchr.form.ImportInfoForm;
 import cs.jmchr.model.employee.EmployeeModel;
 import cs.jmchr.service.employee.EmployeeService;
 
@@ -33,22 +36,18 @@ public class EmployeeController {
 	
 	@RequestMapping(value = "/employee/import", method = RequestMethod.GET)
 	public String showImport(Map<String, Object> model) {
-		//model.put("importInfoForm", new ImportInfoForm()); 
+		model.put("importInfoForm", new ImportInfoForm()); 
 		logger.info("showImport() is executed");
 		
 		return "employee/import";
 	}
 	@RequestMapping(value = "/employee/importexcel", method = RequestMethod.POST)
-	public String importEmployee(@RequestBody String filePath) {
+	public ModelAndView importEmployee(@RequestParam("file") MultipartFile file) {
 
 		logger.info("importexcel() is executed");
-		
-		filePath = "/home/danhngo/Projects/Jmchr/Employee.xlsx";
-		//filePath = "D:/1.Projects/Jmchr.git/jmchr/build/employee.xls";
-		
 		//List<EmployeeModel> lstEmployee = ExcelUtil.readEmployeeProfile(filePath);
 		String[] fields = new String[] {"Id","Name","Startdate"};
-		List<Object[]> lstModel = ExcelUtil.readExcelFile(filePath, 0, fields);
+		List<Object[]> lstModel = ExcelUtil.readExcelFile(file, 0, fields);
 		
 		List<EmployeeModel> lstEmployee = new ArrayList<EmployeeModel>();
 		for (Object[] objList : lstModel) {
@@ -62,10 +61,14 @@ public class EmployeeController {
 				
 		employeeService.importEmployee(lstEmployee);
 		
-		/*ModelAndView model = new ModelAndView();
-		model.setViewName("employee/listxxx");*/		
 		
-		return "redirect:/employee/list";
+		List<EmployeeModel> employeeList = employeeService.getEmployeeList();
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employee/list");
+		model.addObject("employeeList", employeeList);
+		
+		return model;
 	}
 	
 	@RequestMapping(value = "/employee/list", method = RequestMethod.GET)

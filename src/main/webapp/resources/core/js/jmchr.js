@@ -2,8 +2,11 @@
 $(function(){
 	
 	$('body').on('click', 'a#btnimport', function() {
-	
-		var filePath = $("input#filePath").val();
+		var filePath = $("#filePath").val();
+		
+		$('#importInfoForm').submit();
+		
+		/*var filePath = $("input#filePath").val();
 		console.log("filePath ",filePath);
 		
 		 $.ajax({
@@ -12,21 +15,16 @@ $(function(){
 	         dataType: 'json',
 	         data: filePath,
 	         success: function(data) {
-	             
+	             alert(data);
 	         }
-		 });
+		 });*/
 		
 	});
 	
 	
 	
     // The options used for the login/register modal
-/*    var modalCheckoutOptions = {
-        maxWidth    : 720,
-        maxHeight   : 560,  
-        position    : ['30px']
-    };
-*/    
+
 /*	
     function copyShippingForm() {
         $('.cloneable').each(function() {

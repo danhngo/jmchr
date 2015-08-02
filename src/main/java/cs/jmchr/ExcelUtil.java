@@ -1,7 +1,6 @@
 package cs.jmchr;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,23 +13,28 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 public class ExcelUtil {
 	private static final Logger logger = LoggerFactory.getLogger(ExcelUtil.class);
 	
-	public static List<Object[]> readExcelFile(String filePath,int sheetIndex, String[] fields) {
+	public static List<Object[]> readExcelFile(MultipartFile file,int sheetIndex, String[] fields) {
 		List<Object[]> lstModel = new ArrayList<Object[]>();
 		try
         {
-			File inputFile = new File(filePath);
-			FileInputStream file = new FileInputStream(inputFile);
+			//File inputFile = new File(filePath);
+			//FileInputStream file = new FileInputStream(inputFile);
             //Create Workbook instance holding reference to .xlsx file
+			InputStream inputStream = file.getInputStream();
+			
+			String fileName = file.getOriginalFilename();
+			
 			Workbook workbook = null;
-			String ext = filePath.substring(filePath.length() - 3);
+			String ext = fileName.substring(fileName.length() - 3);
 			if ("xls".equals(ext)) {
-				workbook = new HSSFWorkbook(file);
+				workbook = new HSSFWorkbook(inputStream);
 			} else {
-				workbook = new XSSFWorkbook(file);
+				workbook = new XSSFWorkbook(inputStream);
 			}
 			//Get first/desired sheet from the workbook
 			Sheet sheet = workbook.getSheetAt(sheetIndex);
@@ -99,7 +103,7 @@ public class ExcelUtil {
                 }
                 
             }
-            file.close();
+            inputStream.close();
             workbook.close();
             
         }

@@ -7,29 +7,30 @@
 </head>
 <%@ include file="/WEB-INF/views/jsp/partials/header.jsp" %>
 <body>
-	    <div class="container">    
+	    <div class="container"> 
 	    	<div id="paddingTop100">
 		        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
 		            <div class="panel panel-info" >
+		            	            
 		                    <div class="panel-heading">
 		                        <div class="panel-title">Import Employee</div>
 		                    </div>     
-		
+							
 		                    <div style="padding-top:30px" class="panel-body" >
 		
 		                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 		                        
-		                        	<form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/importexcel" method="POST" >
-		                         	
-		                       		  	<input type="file" id="filePath" class="filestyle" data-buttonName="btn-primary" data-buttonText="Browse" data-iconName="glyphicon glyphicon-search" />
-		                         
+		                        	<sf:form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/importexcel" commandName="importInfoForm" method="POST" enctype="multipart/form-data">
+		                         		
+		                       		  	<input type="file" id="file" name="file" class="filestyle" data-buttonName="btn-primary" data-buttonText="Browse" accept=".xlsx,application/excel" data-iconName="glyphicon glyphicon-search" />
+		                       		  	
 		                                <div style="margin-top:10px" class="form-group">
 		                                    <!-- Button -->
 			                                  <div class="col-sm-12 controls">
 		                                      	  <a id="btnimport" href="#" class="btn btn-success">Import Employee</a>                                     	
 		                                    </div>
 		                                </div>
-		                            </form>    
+		                            </sf:form>    
 		                            
 		                        	<%-- <form:form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/importexcel" method="POST" commandName="importInfoForm">
 		                         	

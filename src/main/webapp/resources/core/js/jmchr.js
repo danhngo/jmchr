@@ -24,7 +24,6 @@ $(function(){
 	
 	$('body').on('click', 'a#btnexportcontract', function() {
 		var empId = "JM1";
-		
 		 $.ajax({
 	         url: '/jmchr/employee/exportContract',
 	         type: 'GET',

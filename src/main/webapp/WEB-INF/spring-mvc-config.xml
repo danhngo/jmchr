@@ -16,10 +16,20 @@
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/WEB-INF/views/jsp/" />
 		<property name="suffix" value=".jsp" />
+		<property name="order" value="2" />
 	</bean>
  
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	
 	 
-	<mvc:annotation-driven />
+		
+	<mvc:annotation-driven>
+	    <mvc:message-converters>
+	        <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+	        	
+	        </bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>
  
 </beans>

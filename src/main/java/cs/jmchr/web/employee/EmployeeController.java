@@ -103,7 +103,8 @@ public class EmployeeController {
 			
 			String empId = "JM1";
 			
-			InputStream fistream = new FileInputStream("/home/danhngo/Projects/Jmchr/jmchr.git/Sources/Hop_Dong_Lao_Dong.doc");
+			String fileName = "D:/1.Projects/Jmchr.git/jmchr/Sources/Hop_Dong_Lao_Dong.doc";
+			InputStream fistream = new FileInputStream(fileName);
 			EmployeeModel model = employeeService.getEmployeeById(empId);
 			
 			HWPFDocument document = new HWPFDocument(fistream);
@@ -112,11 +113,12 @@ public class EmployeeController {
 		    document.getRange().replaceText("JMCHR2", model.getId());
 		    document.getRange().replaceText("JMCHR3", model.getStartdate());
 		    
-		    String newFileName = "/home/danhngo/Projects/Jmchr/jmchr.git/Sources/Hop_Dong_Lao_Dong2.doc";
+		    //String newFileName = "/home/danhngo/Projects/Jmchr/jmchr.git/Sources/Hop_Dong_Lao_Dong2.doc";
+		    String newFileName = "D:/1.Projects/Jmchr.git/jmchr/Sources/Hop_Dong_Lao_Dong2.doc";
 		    OutputStream writer = new FileOutputStream(newFileName);
 		    document.write(writer);
 		    
-		    InputStream newFile = new FileInputStream("/home/danhngo/Projects/Jmchr/jmchr.git/Sources/Hop_Dong_Lao_Dong2.doc");
+		    InputStream newFile = new FileInputStream(newFileName);
 		    
 		    byte[] contents = IOUtils.toByteArray(newFile);
 		    
@@ -148,7 +150,7 @@ public class EmployeeController {
 			//System.out.println(document.getDocumentText());
 			
 		} catch (Exception e) {
-			logger.info("Error", e.getMessage());
+			logger.info("Error", e.getStackTrace());
 		}
 		
 		return response;

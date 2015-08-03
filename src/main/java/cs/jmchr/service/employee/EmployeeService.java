@@ -55,5 +55,21 @@ public class EmployeeService {
 		
 		return lstModel;
 	}
+	
+	public EmployeeModel getEmployeeById(String empId) {
+		EmployeeEntity employee = EmployeeDAO.getEmployee(empId);
+		
+		return toEmployeeModel(employee);
+	}
+	
+	private EmployeeModel toEmployeeModel(EmployeeEntity entity) {
+		EmployeeModel model = new EmployeeModel();
+		if (entity != null) {
+			model.setId(entity.getId());
+			model.setName(entity.getName());
+			model.setStartdate(entity.getStartdate());
+		}
+		return model;
+	}
 
 }

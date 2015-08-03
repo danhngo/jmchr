@@ -22,6 +22,23 @@ $(function(){
 	});
 	
 	
+	$('body').on('click', 'a#btnexportcontract', function() {
+		var empId = "JM1";
+		
+		 $.ajax({
+	         url: '/jmchr/employee/exportContract',
+	         type: 'GET',
+	         data: empId,
+	         dataType: 'text',	         
+	         success: function(data) {
+	             //alert(data);
+	        	 //alert("Successfully");
+	         }
+		 });
+		
+	});
+	
+	
 	
     // The options used for the login/register modal
 

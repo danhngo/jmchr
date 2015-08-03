@@ -37,12 +37,12 @@
           </table>
 	</div>
 	
-	<div style="margin-top:10px" class="form-group">
-         <!-- Button -->
-        <div class="col-sm-12 controls">
-           	  <a id="btnimport" href="#" class="btn btn-success">Export Contract</a>                                     	
-         </div>
-     </div>
+		<div style="margin-top:10px" class="form-group">
+	         <!-- Button -->
+	        <div class="col-sm-12 controls">
+	           	  <a id="btnexportcontract" class="btn btn-success">Export Contract</a>                                     	
+	         </div>
+	     </div>
 		
 	</div>
 	<hr>

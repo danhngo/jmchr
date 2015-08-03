@@ -1,17 +1,23 @@
 package cs.jmchr.web.employee;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,26 +92,67 @@ public class EmployeeController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/employee/exportContract", method = RequestMethod.POST)
-	public String exportContract(@RequestBody String empId) {
+	@RequestMapping(value = "/employee/exportContract", method = RequestMethod.GET)
+	public  ResponseEntity<byte[]> exportContract() {
 		//model.put("importInfoForm", new ImportInfoForm()); 
 		logger.info("exportContract() is executed");
-		
-		FileInputStream fistream;
-		HWPFDocument document;
+		//   
+	
+		ResponseEntity<byte[]> response = null;
 		try {
-			fistream = new FileInputStream("File_Path");
-			document = new HWPFDocument(fistream);
 			
-			System.out.println("Length of docment is :"+ document.characterLength());
-			System.out.println(document.getText());
-			System.out.println(document.getDocumentText());
+			String empId = "JM1";
+			
+			InputStream fistream = new FileInputStream("/home/danhngo/Projects/Jmchr/jmchr.git/Sources/Hop_Dong_Lao_Dong.doc");
+			EmployeeModel model = employeeService.getEmployeeById(empId);
+			
+			HWPFDocument document = new HWPFDocument(fistream);
+			
+		    document.getRange().replaceText("JMCHR1", model.getName());
+		    document.getRange().replaceText("JMCHR2", model.getId());
+		    document.getRange().replaceText("JMCHR3", model.getStartdate());
+		    
+		    String newFileName = "/home/danhngo/Projects/Jmchr/jmchr.git/Sources/Hop_Dong_Lao_Dong2.doc";
+		    OutputStream writer = new FileOutputStream(newFileName);
+		    document.write(writer);
+		    
+		    InputStream newFile = new FileInputStream("/home/danhngo/Projects/Jmchr/jmchr.git/Sources/Hop_Dong_Lao_Dong2.doc");
+		    
+		    byte[] contents = IOUtils.toByteArray(newFile);
+		    
+		    HttpHeaders headers = new HttpHeaders();
+		    headers.setContentType(MediaType.parseMediaType("application/msword"));
+		    String filename = "Hop_Dong_Lao_Dong2.doc";
+		    headers.setContentDispositionFormData(filename, filename);
+		    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		    
+		    response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
+		    
+		    //FileCopyUtils.copy(fistream, response.getOutputStream());
+		    		    
+		 /*   org.apache.commons.io.IOUtils.copy(newFile, response.getOutputStream());
+		 	    		    
+		    //response.setContentType("application/msword");
+		    response.setContentType("application/force-download");
+		    response.setHeader("Content-Disposition", "attachment; filename=Hop_Dong_Lao_Dong.doc"); 
+		     
+		    response.flushBuffer();*/
+		    
+		    fistream.close();
+		    newFile.close();
+		    
+		    /*response.getOutputStream().flush();
+		    response.getOutputStream().close();*/
+		    		    						
+			//System.out.println(document.getText());
+			//System.out.println(document.getDocumentText());
 			
 		} catch (Exception e) {
-			
+			logger.info("Error", e.getMessage());
 		}
-				
-		return "employee/list";
+		
+		return response;
+		
 	}
 	
 	

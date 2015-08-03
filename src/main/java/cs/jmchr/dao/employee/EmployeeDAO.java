@@ -37,4 +37,16 @@ public class EmployeeDAO {
 		 
 		 return empList;
 	}
+	
+	public static EmployeeEntity getEmployee(String empId) {
+		 Session session = HibernateUtil.getSessionFactory().openSession();
+		 session.beginTransaction();
+		
+		 EmployeeEntity tempEmp =   (EmployeeEntity)session.get(EmployeeEntity.class, empId);
+		 
+		 session.close();
+		 
+		 return tempEmp;
+	}
+	
 }

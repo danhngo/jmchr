@@ -152,111 +152,140 @@ public class ExcelUtil {
 			int minRowIx = sheet.getFirstRowNum();
             int maxRowIx = sheet.getLastRowNum();
             for(int rowIx=minRowIx; rowIx<maxRowIx; rowIx++) {
-            		Row row = sheet.getRow(rowIx);
-            		
-            		 if(row == null) {
- 	                    continue;
- 	                  }
-            	
-            		short minColIx = row.getFirstCellNum();
-                    short maxColIx = row.getLastCellNum();
-                    for(short colIx=minColIx; colIx<maxColIx; colIx++) {
-    	                  Cell cell = row.getCell(colIx);
-    	                  if(cell == null) {
-    	                    continue;
-    	                  }
-                      
-    	                  if (colIx == minColIx && cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-    	                	 	                    		
-  	                    		for (int step = 1; step < 32; step++) {
-  	                    			
-  	                    			int workingIndex = colIx + 2 * step + 1;
-  	                    			int OTIndex = colIx + 2 * step + 2;
-  	                    			
-  	                    			Cell timeInCell = row.getCell(workingIndex);
-  		                    		Cell timeOutCell = row.getCell(OTIndex);
-  		                    		
-  		                    		if (HSSFDateUtil.isCellDateFormatted(timeInCell) & HSSFDateUtil.isCellDateFormatted(timeOutCell)) {
-  		                    			Date timeIn = timeInCell.getDateCellValue();
-  			                    		Date timeOut = timeOutCell.getDateCellValue();
-  			                    		if (timeOut != null && timeIn != null) {
-  			                    			long secs = (timeOut.getTime() - timeIn.getTime()) / 1000;
-  	  			                    		double hours = secs / 3600;    
-  	  			                    		secs = secs % 3600;
-  	  			                    		double mins = secs / 60;
-  	  			                    		double hourext = mins/60;
-  	  			                    		double realHour = hours + hourext;
-  	  			                    		  			                    		
-  	  			                    		Row nextRow = sheet.getRow(rowIx+1);
-  	  			                    		Cell workingHourCell = nextRow.getCell(workingIndex);
-  	  			                    		
-  	  			                    		boolean isOk = false;
-  	  			                    		double workingHourValue = 0;
-  	  			                    		if (workingHourCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-  	  			                    			isOk = true;
-  	  			                    			workingHourValue = workingHourCell.getNumericCellValue();
-  	  			                    		} else if (workingHourCell.getCellType() == Cell.CELL_TYPE_STRING) {
-  	  			                    			String tempValue = workingHourCell.getStringCellValue();
-  	  			                    			workingHourValue = toNumeric(tempValue);
-  	  			                    			
-  	  			                    			if (workingHourValue != -1) {
-  	  			                    				isOk = true;
-  	  			                    				
-  	  			                    			}
-  	  			                    		}
-	  			                    		
-	  			                    		if (isOk) {
-	  			                    			
-	  			                    			Cell OTHourCell = nextRow.getCell(OTIndex);
-	  			                    			
-	  			                    			double otHour =  realHour - workingHourValue;
-	  			                    			
-	  			                    			long iPart = (long)otHour;
-	  			                    			
-	  			                    			double fPart = otHour - iPart;
-	  			                    			
-	  			                    			double outValue = otHour;
-	  			                    			if (fPart <= 0.2) {
-	  			                    				outValue = iPart;
-	  			                    			} else if (fPart <= 0.7) {
-	  			                    				outValue = iPart + 0.5;
-	  			                    			}  else {
-	  			                    				outValue = iPart + 1;
-	  			                    			}
-	  			                    			
-	  			                    			if (outValue < 0) outValue = 0;
-	  			                    			
-	  			                    			OTHourCell.setCellValue(outValue);
-	  			                    			
-	  			                    			CellStyle style = workbook.createCellStyle();
-	  			                    			
-	  			                    		/*	Font font = workbook.createFont();
-	  			                    			font.setColor(HSSFColor.RED.index);
-	  			                    			style.setFont(font);
-	  			                    	    
-	  			                    	        style.setFillForegroundColor(HSSFColor.BLUE_GREY.index);
-	  			                    	    
-	  			                    	        style.setFillPattern(CellStyle.SOLID_FOREGROUND);*/
-	  			                    	        
-	  			                    	        OTHourCell.setCellStyle(style);
-	  			                    	        
-	  			                    		}
-	  			                    		
-  	  			                    		
-  			                    		}
-  			                    		
-  			                    		
-  			                    		
-  		                    		}
-  	                    		}
-  	                    	
-    	                  }
-                      
-                    }
-
-                    
-                  
+        		Row row = sheet.getRow(rowIx);
+        		
+        		 if(row == null) {
+                    continue;
+                  }
+        	
+        		short minColIx = row.getFirstCellNum();
+                //short maxColIx = row.getLastCellNum();
+              
+                Cell cell = row.getCell(minColIx);
                 
+                double workingHourSum = 0;
+                double workingDate = 0;
+                
+                if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                	 	                    		
+            		for (int step = 1; step < 32; step++) {
+            			
+            			int workingIndex = minColIx + 2 * step + 1;
+            			int OTIndex = minColIx + 2 * step + 2;
+            			
+            			Cell timeInCell = row.getCell(workingIndex);
+                		Cell timeOutCell = row.getCell(OTIndex);
+                		
+                		if (HSSFDateUtil.isCellDateFormatted(timeInCell) & HSSFDateUtil.isCellDateFormatted(timeOutCell)) {
+                			Date timeIn = timeInCell.getDateCellValue();
+                    		Date timeOut = timeOutCell.getDateCellValue();
+                    		if (timeOut != null && timeIn != null) {
+                    			long secs = (timeOut.getTime() - timeIn.getTime()) / 1000;
+	                    		double hours = secs / 3600;    
+	                    		secs = secs % 3600;
+	                    		double mins = secs / 60;
+	                    		double hourext = mins/60;
+	                    		double realHour = hours + hourext;
+	                    		  			                    		
+	                    		Row nextRow = sheet.getRow(rowIx+1);
+	                    		
+	                    		//Cell workingHourCell = nextRow.getCell(workingIndex);
+	                    		
+	                    		/*boolean isOk = false;
+	                    		
+	                    		double workingHourValue = 0;
+	                    		if (workingHourCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+	                    			isOk = true;
+	                    			workingHourValue = workingHourCell.getNumericCellValue();
+	                    		} else if (workingHourCell.getCellType() == Cell.CELL_TYPE_STRING) {
+	                    			String tempValue = workingHourCell.getStringCellValue();
+	                    			workingHourValue = toNumeric(tempValue);
+	                    			
+	                    			if (workingHourValue != -1) {
+	                    				isOk = true;
+	                    				
+	                    			}
+	                    		} else if (workingHourCell.getCellType() == Cell.CELL_TYPE_BLANK) {
+	                    			workingHourValue = 8;
+	                    				isOk = true;
+	                    		}*/
+	                    		
+	                    			double workingHourValue = 8;
+	                    		
+	                    			Cell workingHourCell = nextRow.getCell(workingIndex);
+	                    			Cell OTHourCell = nextRow.getCell(OTIndex);
+	                    			
+	                    			long iPart = (long)realHour;
+	                    			
+	                    			double fPart = realHour - iPart;
+	                    			
+	                    			double outValue = realHour;
+	                    			if (fPart <= 0.2) {
+	                    				outValue = iPart;
+	                    			} else if (fPart <= 0.7) {
+	                    				outValue = iPart + 0.5;
+	                    			}  else {
+	                    				outValue = iPart + 1;
+	                    			}
+	                    			
+	                    			
+	                    			double otHour =  outValue - workingHourValue;
+	                    			
+	                    			if (otHour < 0) {
+	                    				workingHourValue = outValue;
+	                    				otHour = 0;
+	                    			} 
+	                    			
+	                    			if (workingIndex == 11 || workingIndex == 25 || workingIndex == 39 || workingIndex == 53) {
+	                    				//Weekend
+	                    				workingHourValue = 0;
+	                    				otHour = outValue;
+	                    			}
+	                    			
+	                    			workingHourSum = workingHourSum + workingHourValue + otHour;
+	                    			
+	                    			workingHourCell.setCellValue(workingHourValue);
+	                    			OTHourCell.setCellValue(otHour);
+	                    			
+	                    			CellStyle style = workbook.createCellStyle();
+	                    			
+	                    		/*	Font font = workbook.createFont();
+	                    			font.setColor(HSSFColor.RED.index);
+	                    			style.setFont(font);
+	                    	    
+	                    	        style.setFillForegroundColor(HSSFColor.BLUE_GREY.index);
+	                    	    
+	                    	        style.setFillPattern(CellStyle.SOLID_FOREGROUND);*/
+	                    	        
+	                    			workingHourCell.setCellStyle(style);
+	                    	        OTHourCell.setCellStyle(style);
+	                    		
+                    		}
+                    		
+                		}
+            		}
+            		
+            		
+            		//Set sum values
+            		int workingHourSumIx = minColIx + 2 * 32 + 1;
+            		int workingDateSumIx = minColIx + 2 * 32 + 2;
+            		
+            		Row nextRow = sheet.getRow(rowIx+1);
+            		
+            		Cell workingHourSumCell = nextRow.getCell(workingHourSumIx);
+            		Cell workingDateSumCell = nextRow.getCell(workingDateSumIx);
+            		
+            		CellStyle style = workbook.createCellStyle();
+        			    
+            		workingHourSumCell.setCellStyle(style);
+            		workingDateSumCell.setCellStyle(style);
+            		
+            		workingHourSumCell.setCellValue(workingHourSum);
+            		double dateSum = workingHourSum / 8;
+            		workingDateSumCell.setCellValue(dateSum);
+                	
+                 }
+                  
                       
             inputStream.close();
             //workbook.close();
@@ -265,7 +294,9 @@ public class ExcelUtil {
 			//outWb.write(fileOut);
 			//outWb.close();
             
-            String excelFileName = "D:/temp/out.xls";
+            //String excelFileName = "D:/temp/out.xls";
+            String excelFileName = "/home/danhngo/Projects/Jmchr/jmchr.git/Sources/outnew.xls";
+           
 			FileOutputStream fileOut = new FileOutputStream(excelFileName);
 			
 			workbook.write(fileOut);

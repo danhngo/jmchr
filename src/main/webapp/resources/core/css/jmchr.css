@@ -9,3 +9,5 @@ div#paddingTop100 {
 	display: block;
 	padding-top: 100px;		
 }
+
+.table-striped tbody tr.highlight td { background-color: #449d44; }

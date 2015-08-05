@@ -14,7 +14,7 @@
 	
 	<div id="paddingTop100">
 	
-		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+		<table id="emplist" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
 	                <th>ID</th>
@@ -40,8 +40,11 @@
 		<div style="margin-top:10px" class="form-group">
 	         <!-- Button -->
 	        <div class="col-sm-12 controls">
-	           	  <a id="btnexportcontract" class="btn btn-success">Export Contract</a>                                     	
-	         </div>
+	           	  <a id="btnexportcontract" class="btn btn-success">Export Contract</a>   
+	           	  <a id="btnexportresignation" class="btn btn-success">Export Resignation</a>
+	           	  <a id="btnleave" class="btn btn-success">Leave</a>
+	           	  <a id="btnperformance" class="btn btn-success">Performance</a>
+	         </div>	          
 	     </div>
 		
 	</div>

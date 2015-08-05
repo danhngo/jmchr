@@ -45,10 +45,7 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle js-activated">Employee<b class="caret"></b></a>
            <ul class="dropdown-menu">
-             <li><a href="/jmchr/employee/list">Search</a></li>
-             <li><a href="#">Contract & Resignation</a></li>
-             <li><a href="#">Leave</a></li>
-             <li><a href="#">Performance</a></li>
+             <li><a href="/jmchr/employee/list">Management</a></li>
              <li class="divider"></li>
              <li><a href="/jmchr/employee/import">Import Profile</a></li>
            </ul>
@@ -56,7 +53,7 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">Payroll<b class="caret"></b></a>
            <ul class="dropdown-menu">
-              <li><a href="#">Import attendance</a></li>
+              <li><a href="#">Import Attendance</a></li>
 			  <li><a href="#">Formula</a></li>
 			  <li><a href="#">Calculation</a></li>
            </ul>

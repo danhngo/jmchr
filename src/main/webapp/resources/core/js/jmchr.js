@@ -44,7 +44,16 @@ $(function(){
 		
 	});
 	
-	
+	$('#emplist').on('click', 'tbody tr', function(event) {
+		
+		var className = $(this).attr('class');
+		if (className == 'highlight') {
+			$(this).removeClass('highlight');
+		} else {
+			$(this).addClass('highlight').siblings().removeClass('highlight');
+		}
+	    
+	});
 	
     // The options used for the login/register modal
 

@@ -77,6 +77,25 @@ public class EmployeeController {
 		return model;
 	}
 	
+	@RequestMapping(value = "/employee/extractdata", method = RequestMethod.POST)
+	public ModelAndView extractData(@RequestParam("file") MultipartFile file) {
+
+		logger.info("extractdata() is executed");
+		//List<EmployeeModel> lstEmployee = ExcelUtil.readEmployeeProfile(filePath);
+		
+		try {
+			ExcelUtil.extractData(file);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employee/import");
+		
+		return model;
+	}
+	
 	@RequestMapping(value = "/employee/list", method = RequestMethod.GET)
 	public ModelAndView employeeList() {
 		//model.put("importInfoForm", new ImportInfoForm()); 

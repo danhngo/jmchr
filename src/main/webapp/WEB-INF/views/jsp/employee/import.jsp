@@ -20,9 +20,9 @@
 		
 		                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 		                        
-		                        	<sf:form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/importexcel" commandName="importInfoForm" method="POST" enctype="multipart/form-data">
+		                        	<sf:form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/extractdata" commandName="importInfoForm" method="POST" enctype="multipart/form-data">
 		                         		
-		                       		  	<input type="file" id="file" name="file" class="filestyle" data-buttonName="btn-primary" data-buttonText="Browse" accept=".xlsx,application/excel" data-iconName="glyphicon glyphicon-search" />
+		                       		  	<input type="file" id="file" name="file" class="filestyle" data-buttonName="btn-primary" data-buttonText="Browse"  data-iconName="glyphicon glyphicon-search" />
 		                       		  	
 		                                <div style="margin-top:10px" class="form-group">
 		                                    <!-- Button -->
@@ -30,6 +30,14 @@
 		                                      	  <a id="btnimport" href="#" class="btn btn-success">Import Employee</a>                                     	
 		                                    </div>
 		                                </div>
+		                                
+		                                <div style="margin-top:10px" class="form-group">
+		                                    <!-- Button -->
+			                                  <div class="col-sm-12 controls">
+		                                      	  <a id="btnimportX" href="#" class="btn btn-success">Extract</a>                                     	
+		                                    </div>
+		                                </div>
+		                                
 		                            </sf:form>    
 		                            
 		                        	<%-- <form:form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/importexcel" method="POST" commandName="importInfoForm">

@@ -21,6 +21,13 @@ $(function(){
 		
 	});
 	
+	$('body').on('click', 'a#btnimportX', function() {
+		
+		$('#importInfoForm').action = '/jmchr/employee/extractdata';
+		$('#importInfoForm').submit();
+		
+	});
+	
 	
 	$('body').on('click', 'a#btnexportcontract', function() {
 		var empId = "JM1";

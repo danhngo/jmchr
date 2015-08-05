@@ -20,7 +20,7 @@
 		
 		                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 		                        
-		                        	<sf:form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/extractdata" commandName="importInfoForm" method="POST" enctype="multipart/form-data">
+		                        	<sf:form id="importInfoForm" class="form-horizontal" role="form" action="/jmchr/employee/importexcel" commandName="importInfoForm" method="POST" enctype="multipart/form-data">
 		                         		
 		                       		  	<input type="file" id="file" name="file" class="filestyle" data-buttonName="btn-primary" data-buttonText="Browse"  data-iconName="glyphicon glyphicon-search" />
 		                       		  	

@@ -14,7 +14,7 @@
 	
 	<div id="paddingTop100">
 	
-		<table id="emplist" class="table table-striped table-bordered" cellspacing="0" width="100%">
+		<table id="tbemplist" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
 	                <th>ID</th>
@@ -40,6 +40,10 @@
 		<div style="margin-top:10px" class="form-group">
 	         <!-- Button -->
 	        <div class="col-sm-12 controls">
+	           	  <a id="btnAddEmp" class="btn btn-success">Add</a>
+	           	  <a id="btnModifyEmp" class="btn btn-success">Modify</a>
+	           	  <a id="btnDeleteEmp" class="btn btn-success">Delete</a>
+	           	  |	
 	           	  <a id="btnexportcontract" class="btn btn-success">Export Contract</a>   
 	           	  <a id="btnexportresignation" class="btn btn-success">Export Resignation</a>
 	           	  <a id="btnleave" class="btn btn-success">Leave</a>
@@ -56,7 +60,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	    $('#example').dataTable();
+	    $('#tbemplist').dataTable();
 	} );
 </script>	
 

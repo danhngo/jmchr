@@ -18,9 +18,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,6 +40,16 @@ public class EmployeeController {
 	@Autowired
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
+	}
+	
+	@RequestMapping(value = "/employee/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteEmp(@RequestBody String empId) {
+		logger.info("deleteEmp() is executed");
+		empId = empId.replace("=", "");
+		employeeService.deleteEmployee(empId);
+		
+		return "success";
 	}
 	
 	@RequestMapping(value = "/employee/import", method = RequestMethod.GET)

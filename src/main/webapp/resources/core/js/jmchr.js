@@ -1,6 +1,31 @@
 /* Operations */
 $(function(){
 	
+	$('body').on('click', 'a#btnDeleteEmp', function() {
+		
+		$('#tbemplist tbody tr').each(function() {
+	       if ( $(this).hasClass('highlight') ) {
+	          var $row = $(this);
+	          var selectedEmpId = $row.find("td:first").text();
+	          $row.remove();
+	          $.ajax({
+	 	         url: '/jmchr/employee/delete',
+	 	         type: 'post',
+	 	         dataType: 'application/json',
+	 	         data: selectedEmpId,
+	 	         success: function(data) {
+	 	             alert("Delete Successfully");
+	 	         }
+	 		 });
+	          
+	         
+	          
+	       } 
+	     });
+
+		
+	});
+	
 	$('body').on('click', 'a#btnimport', function() {
 		var filePath = $("#filePath").val();
 		
@@ -44,12 +69,11 @@ $(function(){
 		
 	});
 	
-	$('#emplist').on('click', 'tbody tr', function(event) {
+	$('#tbemplist').on('click', 'tbody tr', function(event) {
 		
-		var className = $(this).attr('class');
-		if (className == 'highlight') {
-			$(this).removeClass('highlight');
-		} else {
+		if ( $(this).hasClass('highlight') ) {
+            $(this).removeClass('highlight');
+        } else {
 			$(this).addClass('highlight').siblings().removeClass('highlight');
 		}
 	    

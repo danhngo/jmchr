@@ -35,6 +35,11 @@ public class EmployeeService {
 		return lstEntity;
 	}
 	
+	public int deleteEmployee(String empId) {
+		
+		return EmployeeDAO.deleteEmployee(empId);
+	}
+	
 	public List<EmployeeModel> getEmployeeList() {
 		List<EmployeeEntity> entities = EmployeeDAO.getEmployeeList();
 		

@@ -26,6 +26,20 @@ public class EmployeeDAO {
 		return 0;
 	}
 	
+	public static int deleteEmployee(String empId) {
+		 Session session = HibernateUtil.getSessionFactory().openSession();
+		 session.beginTransaction();
+		
+		 EmployeeEntity employee = (EmployeeEntity) session.get(EmployeeEntity.class, empId);
+		
+		 session.delete(employee);
+		
+		 session.getTransaction().commit();
+		 session.close();
+		 
+		 return 1;
+	}
+	
 	public static List<EmployeeEntity> getEmployeeList() {
 		 Session session = HibernateUtil.getSessionFactory().openSession();
 		 session.beginTransaction();

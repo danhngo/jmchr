@@ -27,14 +27,7 @@
 		                                <div style="margin-top:10px" class="form-group">
 		                                    <!-- Button -->
 			                                  <div class="col-sm-12 controls">
-		                                      	  <a id="btnimport" href="#" class="btn btn-success">Import Employee</a>                                     	
-		                                    </div>
-		                                </div>
-		                                
-		                                <div style="margin-top:10px" class="form-group">
-		                                    <!-- Button -->
-			                                  <div class="col-sm-12 controls">
-		                                      	  <a id="btnimportX" href="#" class="btn btn-success">Extract</a>                                     	
+		                                      	  <a id="btnimport" href="#" class="btn btn btn-primary">Import Employee</a>                                     	
 		                                    </div>
 		                                </div>
 		                                
@@ -57,9 +50,9 @@
 		                                <div style="margin-top:10px" class="form-group">
 		                                    <!-- Button -->
 			                                  <div class="col-sm-12 controls">
-		                                      	  <a id="btnimport" href="#" class="btn btn-success">Import Employee</a>
+		                                      	  <a id="btnimport" href="#" class="btn btn btn-primary">Import Employee</a>
 		                                      	 <!-- 
-		                                      	 <button type="submit" class="btn btn-success">Import Employee</button>
+		                                      	 <button type="submit" class="btn btn btn-primary">Import Employee</button>
 		                                      	  -->	
 		                                    </div>
 		                                </div>

@@ -1,10 +1,32 @@
 /* Operations */
 $(function(){
 	
+	var options = {
+		    "backdrop" : "static",
+		    "keyboard"  : "true"
+		}
+	
 	$('body').on('click', 'a#btnDeleteEmp', function() {
+		var isOk = false;
+		$('#tbemplist tbody tr').each(function() {
+	       if ( $(this).hasClass('highlight') ) {
+	    	   //Show confirmation
+	    	   isOk = true;
+	    	   $('#modalConfirmDelete').modal(options);   	   
+	       } 
+	     });
+		
+		if (!isOk) {
+			$('#modalMessage').modal(options);
+		}
+	});
+	
+	$('body').on('click', 'button#btnConfirmDelete', function() {
 		
 		$('#tbemplist tbody tr').each(function() {
 	       if ( $(this).hasClass('highlight') ) {
+	    	  $('#modalConfirmDelete').modal('toggle');
+	    	   
 	          var $row = $(this);
 	          var selectedEmpId = $row.find("td:first").text();
 	          $row.remove();
@@ -17,13 +39,26 @@ $(function(){
 	 	             alert("Delete Successfully");
 	 	         }
 	 		 });
-	          
-	         
-	          
 	       } 
 	     });
-
-		
+		  
+	});
+	
+	
+	
+	$('body').on('click', 'a#btnModifyEmp', function() {
+		var isOk = false;
+		$('#tbemplist tbody tr').each(function() {
+	       if ( $(this).hasClass('highlight') ) {
+	    	   isOk = true;
+	    	   $('#modalAddEmployee').modal(options);
+	    	   $('#modalAddEmployee').find('.modal-title').text('Modify Employee');
+	          
+	       }
+	     });
+		if (!isOk) {
+			$('#modalMessage').modal(options);
+		}
 	});
 	
 	$('body').on('click', 'a#btnimport', function() {

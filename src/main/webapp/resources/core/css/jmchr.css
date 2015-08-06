@@ -1,6 +1,12 @@
 .dropdown:hover .dropdown-menu {
 	display: block;
 }
+
+.navbar-inverse {
+	background-color: #286090;
+  	border-color: #204d74;
+}
+
 .container {
   width: 98%;
 }

@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cs.jmchr.ExcelUtil;
+import cs.jmchr.form.EmployeeForm;
 import cs.jmchr.form.ImportInfoForm;
 import cs.jmchr.model.employee.EmployeeModel;
 import cs.jmchr.service.employee.EmployeeService;
@@ -51,6 +53,15 @@ public class EmployeeController {
 		
 		return "success";
 	}
+		
+	
+	@RequestMapping(value = "/employee/update", method = RequestMethod.POST)
+	public ModelAndView updateEmp(@ModelAttribute EmployeeModel model) {
+		logger.info("value() is executed");
+		employeeService.updateEmployee(model);
+		
+		return employeeList();
+	}
 	
 	@RequestMapping(value = "/employee/import", method = RequestMethod.GET)
 	public String showImport(Map<String, Object> model) {
@@ -70,7 +81,7 @@ public class EmployeeController {
 		List<EmployeeModel> lstEmployee = new ArrayList<EmployeeModel>();
 		for (Object[] objList : lstModel) {
 			EmployeeModel model = new EmployeeModel();
-			model.setId((String)objList[0]);
+			model.setEmpId((String)objList[0]);
 			model.setName((String)objList[1]);
 			model.setStartdate((String)objList[2]);
 			
@@ -117,7 +128,8 @@ public class EmployeeController {
 		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("employee/list");
-		
+		EmployeeForm employee = new EmployeeForm();
+		model.addObject("employeeForm",employee);
 		model.addObject("employeeList", employeeList);
 				
 		return model;
@@ -131,17 +143,19 @@ public class EmployeeController {
 	
 		ResponseEntity<byte[]> response = null;
 		try {
-			
 			String empId = "JM1";
+			EmployeeModel model = employeeService.getEmployeeById(empId);
+			if (model == null) return null;
 			
 			String fileName = "D:/1.Projects/Jmchr.git/jmchr/Sources/Hop_Dong_Lao_Dong.doc";
 			InputStream fistream = new FileInputStream(fileName);
-			EmployeeModel model = employeeService.getEmployeeById(empId);
+			
+			
 			
 			HWPFDocument document = new HWPFDocument(fistream);
 			
 		    document.getRange().replaceText("JMCHR1", model.getName());
-		    document.getRange().replaceText("JMCHR2", model.getId());
+		    document.getRange().replaceText("JMCHR2", model.getEmpId());
 		    document.getRange().replaceText("JMCHR3", model.getStartdate());
 		    
 		    //String newFileName = "/home/danhngo/Projects/Jmchr/jmchr.git/Sources/Hop_Dong_Lao_Dong2.doc";

@@ -1,15 +1,15 @@
 package cs.jmchr.model.employee;
 
 public class EmployeeModel {
-	private String id;
+	private String empId;
 	private String name;
 	private String startdate;
-	public String getId() {
-		return id;
+	public String getEmpId() {
+		return empId;
 	}
 	
-	public void setId(String id) {
-		this.id = id;
+	public void setEmpId(String empId) {
+		this.empId = empId;
 	}
 	public String getName() {
 		return name;

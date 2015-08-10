@@ -24,12 +24,10 @@ public class EmployeeService {
 		List<EmployeeEntity> lstEntity = new ArrayList<EmployeeEntity>();
 		
 		for (EmployeeModel model : lstEmployee) {
-			EmployeeEntity entity = new EmployeeEntity();
-			entity.setId(model.getId());
-			entity.setName(model.getName());
-			entity.setStartdate(model.getStartdate());
-			
-			lstEntity.add(entity);
+			EmployeeEntity entity = toEmployeeEntity(model);
+			if (entity != null) {
+				lstEntity.add(entity);
+			}
 		}
 		
 		return lstEntity;
@@ -38,6 +36,15 @@ public class EmployeeService {
 	public int deleteEmployee(String empId) {
 		
 		return EmployeeDAO.deleteEmployee(empId);
+	}
+	
+	public int updateEmployee(EmployeeModel model) {
+		int result = 0;
+		EmployeeEntity entity = toEmployeeEntity(model);
+		if (entity != null) {
+			EmployeeDAO.updateEmployee(entity);
+		}
+		return result;
 	}
 	
 	public List<EmployeeModel> getEmployeeList() {
@@ -50,12 +57,10 @@ public class EmployeeService {
 		List<EmployeeModel> lstModel = new ArrayList<EmployeeModel>();
 		
 		for (EmployeeEntity entity : lstEntity) {
-			EmployeeModel model = new EmployeeModel();
-			model.setId(entity.getId());
-			model.setName(entity.getName());
-			model.setStartdate(entity.getStartdate());
-			
-			lstModel.add(model);
+			EmployeeModel model = toEmployeeModel(entity);
+			if (model != null) {
+				lstModel.add(model);
+			}
 		}
 		
 		return lstModel;
@@ -68,13 +73,25 @@ public class EmployeeService {
 	}
 	
 	private EmployeeModel toEmployeeModel(EmployeeEntity entity) {
-		EmployeeModel model = new EmployeeModel();
+		EmployeeModel model = null;
 		if (entity != null) {
-			model.setId(entity.getId());
+			model =  new EmployeeModel();
+			model.setEmpId(entity.getId());
 			model.setName(entity.getName());
 			model.setStartdate(entity.getStartdate());
 		}
 		return model;
+	}
+	
+	private EmployeeEntity toEmployeeEntity(EmployeeModel model) {
+		EmployeeEntity entity = null;
+		if (model != null) {
+			entity =  new EmployeeEntity();
+			entity.setId(model.getEmpId());
+			entity.setName(model.getName());
+			entity.setStartdate(model.getStartdate());
+		}
+		return entity;
 	}
 
 }

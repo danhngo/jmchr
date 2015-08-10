@@ -44,21 +44,41 @@ $(function(){
 		  
 	});
 	
-	
-	
+		
 	$('body').on('click', 'a#btnModifyEmp', function() {
 		var isOk = false;
 		$('#tbemplist tbody tr').each(function() {
 	       if ( $(this).hasClass('highlight') ) {
 	    	   isOk = true;
+	    	   copyEmployeeData($(this));
 	    	   $('#modalAddEmployee').modal(options);
 	    	   $('#modalAddEmployee').find('.modal-title').text('Modify Employee');
-	          
+	           return;
 	       }
 	     });
 		if (!isOk) {
 			$('#modalMessage').modal(options);
 		}
+	});
+	
+	$('body').on('click', 'a#btnAddEmp', function() {
+	   $('#modalAddEmployee').modal(options);
+ 	   $('#modalAddEmployee').find('.modal-title').text('Add Employee');
+	});
+	
+	function copyEmployeeData(row) {
+		var values = row.find("td");
+		
+	    $("input#textEmpId").val(values[0].innerText);
+	    $("input#textName").val(values[1].innerText);
+	    $("input#textStartdate").val(values[2].innerText);
+		
+        	        
+	}
+	
+		
+	$('body').on('click', '#btnSaveChanges', function() {
+		$('#formAddEmployee').submit();
 	});
 	
 	$('body').on('click', 'a#btnimport', function() {

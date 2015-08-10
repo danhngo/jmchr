@@ -63,4 +63,18 @@ public class EmployeeDAO {
 		 return tempEmp;
 	}
 	
+	public static int updateEmployee(EmployeeEntity entity) {
+		 Session session = HibernateUtil.getSessionFactory().openSession();
+		 session.beginTransaction();
+		
+		 session.saveOrUpdate(entity);
+		 
+		 session.getTransaction().commit();
+		 session.close();
+		 
+		 return 1;
+	}
+	
+	
+	
 }

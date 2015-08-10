@@ -26,7 +26,7 @@
 	        <tbody>
 	             <c:forEach var="employee" items="${employeeList}" >
 		              <tr>
-		                <td>${employee.id}</td>
+		                <td>${employee.empId}</td>
 		                <td>${employee.name}</td>
 		                <td>${employee.startdate}</td>
 		             </tr>
@@ -84,22 +84,22 @@
 	            <h4 class="modal-title" id="myModalLabel">Modify Employee</h4>
 	            </div>
 	            <div class="modal-body" >
-	                 <form id="formAddEmployee" class="form-horizontal" role="form" action="/jmchr/employee/add" commandName="employeeForm" method="POST">
+	                 <sf:form id="formAddEmployee" class="form-horizontal" role="form" action="/jmchr/employee/update" commandName="employeeForm" method="POST">
 	                      <div class="row">
-				            <div class="col-md-4"><label for="recipient-name" class="control-label">ID:</label><input type="text" class="form-control" id="textEmpId"></div>
-				            <div class="col-md-4"><label for="recipient-name" class="control-label">Name:</label><input type="text" class="form-control" id="textName"></div>
+				            <div class="col-md-4"><label for="recipient-name" class="control-label">ID:</label><sf:input type="text" class="form-control" id="textEmpId" path="empId"/></div>
+				            <div class="col-md-4"><label for="recipient-name" class="control-label">Name:</label><sf:input type="text" class="form-control" id="textName" path="name"/></div>
 				          </div>
 				          <div class="row">
-				            <div class="col-md-4"><label for="message-text" class="control-label">Startdate:</label><input type="text" class="form-control" id="textStartdate"></div>
+				            <div class="col-md-4"><label for="message-text" class="control-label">Startdate:</label><sf:input type="text" class="form-control" id="textStartdate" path="startdate"/></div>
 				          </div>
-			        </form>
+			        </sf:form>
 	                
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	                <button type="button" class="btn btn-primary" id="btnAddEmp">Save Changes</button>
-	        </div>
-	    </div>
+	                <button type="button" class="btn btn-primary" id="btnSaveChanges">Save Changes</button>
+	        	</div>
+	    	</div>
 	  </div>
 	</div>
 	
